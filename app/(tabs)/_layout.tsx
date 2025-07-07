@@ -7,6 +7,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -34,10 +35,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="holidays"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Holidays',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="calendar-heart" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="months"
+        options={{
+          title: 'Months',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="format-list-text" size={24} color={color} />,
         }}
       />
     </Tabs>

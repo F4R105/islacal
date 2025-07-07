@@ -1,18 +1,13 @@
-import { extractCurrentDay } from '@/lib/data';
-import getStyles from '@/lib/styles';
 import { useCalendar } from '@/providers/CalendarProvider';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TextBase, useColorScheme, View } from 'react-native';
 
 
-export default function HomeScreen() {
-  const styles = getStyles();
+export default function Months() {
 
-  const { calendar } = useCalendar();
-  const today = calendar && extractCurrentDay(calendar)
 
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
+    <SafeAreaView>
+      {/* <View style={styles.header}>
         <Text style={styles.headerText}> Today’s Hijri Date</Text>
         <Text style={styles.subHeaderText}>
           {today?.hijri.day}-{today?.hijri.month.number}, {today?.hijri.year}
@@ -47,17 +42,15 @@ export default function HomeScreen() {
               <View style={styles.card}>
                 <Text style={styles.cardTitle}>Holidays</Text>
                 {today.hijri.holidays.map((holiday, index) => (
-                  <Text key={index} style={styles.holiday}>
-                    - 🎉 {holiday}
-                  </Text>
+                    <Text key={index} style={styles.holiday}>
+                      - 🎉 {holiday}
+                    </Text>
                 ))}
               </View>
             )}
           </View>
         )}
-      </ScrollView>
+      </ScrollView> */}
     </SafeAreaView>
   );
 }
-
-
