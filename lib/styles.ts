@@ -8,11 +8,15 @@ export default function getStyles() {
         wrapper: {
             flex: 1,
             backgroundColor: isDark ? '#1f2937' : '#f9fafb',
-            paddingVertical: 20
+            paddingTop: 20
         },
         container: {
-            padding: 20,
+            padding: 10,
             alignItems: 'center',
+        },
+        header: {
+            paddingHorizontal: 15,
+            marginBottom: 10
         },
         headerText: {
             fontSize: 28,
@@ -23,6 +27,7 @@ export default function getStyles() {
             fontSize: 18,
             color: isDark ? '#e2e2e2' : '#4b5563',
             marginTop: 4,
+            // marginLeft: 10
         },
         cardContainer: {
             width: '100%',
@@ -67,9 +72,15 @@ export default function getStyles() {
         },
         failure: {
             fontSize: 18,
-            color: '#e75331',
+            color: '#f18d36',
             marginTop: 4,
             fontWeight: '600',
+        },
+        info: {
+            color: '#f18d36',
+            fontStyle: 'italic',
+            marginTop: 10,
+            textAlign: 'right'
         },
         holiday: {
             fontSize: 22,
@@ -86,7 +97,7 @@ export default function getStyles() {
             justifyContent: 'space-between'
         },
         listItemTitle: {
-            fontSize: 15,
+            fontSize: 20,
             color: isDark ? '#e2e2e2' : '#1f2937'
         },
         listItemDetail: {
@@ -95,6 +106,10 @@ export default function getStyles() {
         },
         listItemSubTitle: {
             color: '#10b981',
+            fontSize: 20
+        },
+        text: {
+            color: isDark ? '#e2e2e2' : '#111827'
         }
     });
 }

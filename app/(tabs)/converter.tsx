@@ -9,12 +9,12 @@ const converter = () => {
 
     return (
         <SafeAreaView style={styles.wrapper}>
-            <View style={styles.container}>
+            {/* <View style={styles.header}>
                 <Text style={styles.headerText}>Date converter</Text>
                 <Text style={styles.subHeaderText}>
-                    Islamic calendar
+                    Convert normal to islamic calendar
                 </Text>
-            </View>
+            </View> */}
             <Text>converter</Text>
         </SafeAreaView>
     )

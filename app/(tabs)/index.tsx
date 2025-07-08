@@ -1,4 +1,4 @@
-import { extractCurrentDay } from '@/lib/data';
+import { extractCurrentDay, extractNextHoliday } from '@/lib/data';
 import getStyles from '@/lib/styles';
 import { useAppData } from '@/providers/AppDataProvider';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
@@ -9,15 +9,13 @@ export default function HomeScreen() {
 
   const { appData } = useAppData();
   const today = appData && extractCurrentDay(appData.calendar)
+  const nextHoliday = today && extractNextHoliday(appData?.holidays, today.hijri.month.number, parseInt(today.hijri.day))
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
+      {/* <View style={styles.header}>
         <Text style={styles.headerText}> Today’s Hijri Date</Text>
-        <Text style={styles.subHeaderText}>
-          {today?.hijri.day}-{today?.hijri.month.number}, {today?.hijri.year}
-        </Text>
-      </View>
+      </View> */}
 
       <ScrollView contentContainerStyle={styles.container}>
         {today && (
@@ -55,6 +53,17 @@ export default function HomeScreen() {
             )}
           </View>
         )}
+
+        {nextHoliday && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Next Holiday</Text>
+            <Text style={styles.cardValue}>
+              {nextHoliday.name}
+            </Text>
+            <Text style={styles.info}>Day {nextHoliday.day} {nextHoliday.month > today?.hijri.month.number && 'Next month'}</Text>
+          </View>
+        )}
+
       </ScrollView>
     </SafeAreaView>
   );

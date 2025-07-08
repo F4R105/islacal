@@ -65,6 +65,35 @@ export function extractWeekdays(calendar: CurrentMonthCalendar): WeekdayType[] {
     .filter((item): item is WeekdayType => item !== undefined);
 }
 
-export function extractCurrentMonthHolidays(holidays: HolidaysType, hijriDay: number): HolidayType[] {
+export function extractCurrentMonthHolidays(
+  holidays: HolidaysType,
+  hijriDay: number
+): HolidayType[] 
+{
   return holidays.filter(holiday => holiday.month === hijriDay)
+}
+
+export function extractNextHoliday(
+  holidays: HolidaysType,
+  currentHijriMonth: number,
+  currentHijriDay: number
+): HolidayType | null {
+  const sorted = holidays
+    .slice()
+    .sort((a, b) => a.month === b.month
+      ? a.day - b.day
+      : a.month - b.month
+    );
+
+  for (const holiday of sorted) {
+    if (
+      holiday.month > currentHijriMonth ||
+      (holiday.month === currentHijriMonth && holiday.day > currentHijriDay)
+    ) {
+      return holiday;
+    }
+  }
+
+  return null
+
 }

@@ -12,20 +12,20 @@ export default function Learn() {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
+      {/* <View style={styles.header}>
         <Text style={styles.headerText}>Learn</Text>
         <Text style={styles.subHeaderText}>
           Islamic calendar
         </Text>
-      </View>
+      </View> */}
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.cardContainer}>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Islamic weekdays</Text>
             <View style={styles.listContainer}>
-              {islamicWeekDays?.map(weekday => (
-                <View style={styles.listItem}>
+              {islamicWeekDays?.map((weekday, index) => (
+                <View style={styles.listItem} key={index}>
                   <View>
                     <Text style={styles.listItemTitle}>{weekday.hijri.en}</Text>
                     <Text style={styles.listItemDetail}>{weekday.gregorian.en}</Text>
@@ -40,8 +40,8 @@ export default function Learn() {
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Islamic months</Text>
             <View style={styles.listContainer}>
-              {islamicMonths?.map(month => (
-                <View style={styles.listItem}>
+              {islamicMonths?.map((month, index) => (
+                <View style={styles.listItem} key={index}>
                   <Text style={styles.listItemTitle}>{month.number}, {month.en}</Text>
                   <Text style={styles.listItemSubTitle}>{month.ar}</Text>
                 </View>
