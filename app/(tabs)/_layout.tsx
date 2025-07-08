@@ -42,10 +42,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="months"
+        name="learn"
         options={{
-          title: 'Months',
+          title: 'Learn',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="format-list-text" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="converter"
+        options={{
+          title: 'Converter',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="atom-variant" size={24} color={color} />,
         }}
       />
     </Tabs>

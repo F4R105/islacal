@@ -28,6 +28,7 @@ export default function getStyles() {
             width: '100%',
             alignItems: 'center',
             gap: 20,
+            marginBottom: 20
         },
         card: {
             backgroundColor: isDark ? '#13191f' : 'white',
@@ -58,9 +59,15 @@ export default function getStyles() {
             fontWeight: '700',
             color: isDark ? '#e2e2e2' : '#111827',
         },
-        arabic: {
-            fontSize: 20,
+        success: {
+            fontSize: 18,
             color: '#10b981',
+            marginTop: 4,
+            fontWeight: '600',
+        },
+        failure: {
+            fontSize: 18,
+            color: '#e75331',
             marginTop: 4,
             fontWeight: '600',
         },
@@ -69,5 +76,25 @@ export default function getStyles() {
             fontWeight: '700',
             color: isDark ? '#e2e2e2' : '#111827',
         },
+        listContainer: {
+            paddingVertical: 15,
+        },
+        listItem: {
+            marginBottom: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+        },
+        listItemTitle: {
+            fontSize: 15,
+            color: isDark ? '#e2e2e2' : '#1f2937'
+        },
+        listItemDetail: {
+            color: '#8e8e8e',
+            fontSize: 12
+        },
+        listItemSubTitle: {
+            color: '#10b981',
+        }
     });
 }

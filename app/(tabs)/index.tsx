@@ -1,14 +1,14 @@
 import { extractCurrentDay } from '@/lib/data';
 import getStyles from '@/lib/styles';
-import { useCalendar } from '@/providers/CalendarProvider';
+import { useAppData } from '@/providers/AppDataProvider';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 
 export default function HomeScreen() {
   const styles = getStyles();
 
-  const { calendar } = useCalendar();
-  const today = calendar && extractCurrentDay(calendar)
+  const { appData } = useAppData();
+  const today = appData && extractCurrentDay(appData.calendar)
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -27,7 +27,7 @@ export default function HomeScreen() {
               <Text style={styles.cardValue}>
                 {today.hijri.day}, {today.hijri.weekday.en}
               </Text>
-              <Text style={styles.arabic}>{today.hijri.weekday.ar}</Text>
+              <Text style={styles.success}>{today.hijri.weekday.ar}</Text>
             </View>
 
             <View style={styles.card}>
@@ -35,7 +35,7 @@ export default function HomeScreen() {
               <Text style={styles.cardValue}>
                 {today.hijri.month.en} ({today.hijri.month.number})
               </Text>
-              <Text style={styles.arabic}>{today.hijri.month.ar}</Text>
+              <Text style={styles.success}>{today.hijri.month.ar}</Text>
             </View>
 
             <View style={styles.card}>
