@@ -2,11 +2,11 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getCachedData, setCache } from '@/lib/cache';
 import { AppDataType } from '@/lib/types';
 import { getNewData } from '@/lib/data';
+import { router } from 'expo-router';
 
 export type AppDataContextType = {
     appData: AppDataType | null;
     loading: boolean;
-    error: string;
 };
 
 const AppDataContext = createContext<AppDataContextType | undefined>(undefined);
@@ -22,7 +22,6 @@ export const useAppData = () => {
 export const AppDataProvider = ({ children }: { children: React.ReactNode }) => {
     const [appData, setAppData] = useState<AppDataType | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string>('');
 
     const getAppData = async () => {
         try {
@@ -31,15 +30,15 @@ export const AppDataProvider = ({ children }: { children: React.ReactNode }) => 
                 const newData = await getNewData();
                 setAppData(newData);
                 setCache(newData);
-                setLoading(false);
                 return
             }
 
             setAppData(cachedData);
-            setLoading(false);
         } catch (error) {
-            console.error('Failed to fetch app data:', error);
-            // setError(error)
+            router.push({
+                pathname: '/error',
+                params: { message: 'Something went wrong' }
+            });
         } finally {
             setLoading(false);
         }
@@ -50,7 +49,7 @@ export const AppDataProvider = ({ children }: { children: React.ReactNode }) => 
     }, []);
 
     return (
-        <AppDataContext.Provider value={{ appData, loading, error }}>
+        <AppDataContext.Provider value={{ appData, loading }}>
             {children}
         </AppDataContext.Provider>
     );

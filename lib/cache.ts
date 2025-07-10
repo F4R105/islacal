@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import getCurrentDate from "./date";
+import formatDate from "./date";
 import { AppDataType } from "./types";
 
-const getMonthKey = (year: string, month: string) => `hijri-calendar-${year}-${month}`;
-const { month, year } = getCurrentDate();
+const getMonthKey = (year: number, month: number) => `hijri-calendar-${year}-${month}`;
+const { month, year } = formatDate();
 const key = getMonthKey(year, month);
 
 
@@ -25,7 +25,7 @@ export async function getCachedData() {
     }
 }
 
-export async function setCache(calendar : AppDataType) {
+export async function setCache(calendar: AppDataType) {
     try {
         await AsyncStorage.setItem(key, JSON.stringify(calendar));
     } catch (error) {

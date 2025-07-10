@@ -1,37 +1,45 @@
-import { AppDataType, CurrentMonthCalendar, HijriCalendarDay, HolidaysType, HolidayType, IslamicMonth, WeekdayType } from '@/lib/types';
-import getCurrentDate from "./date";
+import { AppDataType, CalendarDay, CalendarMonth, HolidaysType, HolidayType, IslamicMonth, WeekdayType } from '@/lib/types';
 import { API_BASE_URL } from "./config";
+import formatDate from './date';
 
-const { day, month, year, date } = getCurrentDate();
+export async function getNewData(date: Date = new Date()): Promise<AppDataType> {
+  const { month, year } = formatDate(date);
 
-export async function getNewData(): Promise<AppDataType> {
-  const [monthlyCalendar, specialDays, islamicMonths] = await Promise.all([
-    fetch(`${API_BASE_URL}/gToHCalendar/${month}/${year}`),
-    fetch(`${API_BASE_URL}/specialDays`),
-    fetch(`${API_BASE_URL}/islamicMonths`),
-  ]);
+  try {
+    const [monthlyCalendar, specialDays, islamicMonths] = await Promise.all([
+      fetch(`${API_BASE_URL}/gToHCalendar/${month}/${year}`),
+      fetch(`${API_BASE_URL}/specialDays`),
+      fetch(`${API_BASE_URL}/islamicMonths`),
+    ]);
 
-  const monthlyCal = await monthlyCalendar.json()
-  const holidays = await specialDays.json()
-  const months = await islamicMonths.json()
+    const monthlyCal = await monthlyCalendar.json()
+    const holidays = await specialDays.json()
+    const months = await islamicMonths.json()
 
-  // convert months format to arrays
-  const monthsArray = (Object.values(months.data) as IslamicMonth[]).sort(
-    (a, b) => a.number - b.number
-  );
+    // convert months format to arrays
+    const monthsArray = (Object.values(months.data) as IslamicMonth[]).sort(
+      (a, b) => a.number - b.number
+    );
 
-  return {
-    calendar: monthlyCal.data,
-    holidays: holidays.data,
-    months: monthsArray
+    return {
+      calendar: monthlyCal.data,
+      holidays: holidays.data,
+      months: monthsArray
+    }
+  } catch (error) {
+    throw new Error('Something went wrong while fetching new app data');
   }
 }
 
-export function extractCurrentDay(calendar: CurrentMonthCalendar): HijriCalendarDay {
-  return calendar?.filter(day => day.gregorian.date === date)[0];
+export function extractDay(
+  calendar: CalendarMonth,
+  gregorianDate: Date = new Date()
+): CalendarDay {
+  const { fullDate } = formatDate(gregorianDate);
+  return calendar?.filter(day => day.gregorian.date === fullDate)[0];
 }
 
-export function extractWeekdays(calendar: CurrentMonthCalendar): WeekdayType[] {
+export function extractWeekdays(calendar: CalendarMonth): WeekdayType[] {
   const seen = new Map<string, WeekdayType>();
 
   for (const day of calendar) {
@@ -65,12 +73,11 @@ export function extractWeekdays(calendar: CurrentMonthCalendar): WeekdayType[] {
     .filter((item): item is WeekdayType => item !== undefined);
 }
 
-export function extractCurrentMonthHolidays(
+export function extractMonthHolidays(
   holidays: HolidaysType,
-  hijriDay: number
-): HolidayType[] 
-{
-  return holidays.filter(holiday => holiday.month === hijriDay)
+  hijriMonth: number
+): HolidayType[] {
+  return holidays.filter(holiday => holiday.month === hijriMonth)
 }
 
 export function extractNextHoliday(
@@ -96,4 +103,11 @@ export function extractNextHoliday(
 
   return null
 
+}
+
+export async function fetchCalendarDayFromGregorianDate(gregorianDate: Date = new Date()): Promise<CalendarDay> {
+  const { fullDate } = formatDate(gregorianDate);
+  const response = await fetch(`${API_BASE_URL}/gToH/${fullDate}`)
+  const calendar = await response.json()
+  return calendar.data
 }

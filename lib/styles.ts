@@ -1,14 +1,31 @@
 import { StyleSheet, useColorScheme } from "react-native";
 
-export default function getStyles() {
+export function getColors() {
     const colorScheme = useColorScheme()
     const isDark = colorScheme === 'dark';
+    return {
+        backgroundColor: isDark ? 'black' : 'white',
+        foregroundColor: isDark ? '#13191f' : 'white',
+        skeletonColor: isDark ? '#1f2e3bc4' : '#b9b9b991',
+        textColor: isDark ? '#e2e2e2' : '#111827',
+        primaryColor: '#10b981',
+        accentColor: '#f18d36',
+        success: '#10b981',
+        failure: '#e75331',
+        info: '#f18d36',
+    }
+}
+
+export default function getStyles() {
+    const colorScheme = useColorScheme();
+    const isDark = colorScheme === 'dark';
+    const colors = getColors();
 
     return StyleSheet.create({
         wrapper: {
             flex: 1,
-            backgroundColor: isDark ? '#1f2937' : '#f9fafb',
-            paddingTop: 20
+            backgroundColor: colors.backgroundColor,
+            paddingTop: 50
         },
         container: {
             padding: 10,
@@ -19,12 +36,12 @@ export default function getStyles() {
             marginBottom: 10
         },
         headerText: {
-            fontSize: 28,
+            fontSize: 18,
             fontWeight: '700',
             color: isDark ? '#e2e2e2' : '#1f2937',
         },
         subHeaderText: {
-            fontSize: 18,
+            fontSize: 15,
             color: isDark ? '#e2e2e2' : '#4b5563',
             marginTop: 4,
             // marginLeft: 10
@@ -36,15 +53,13 @@ export default function getStyles() {
             marginBottom: 20
         },
         card: {
-            backgroundColor: isDark ? '#13191f' : 'white',
+            backgroundColor: colors.foregroundColor,
             borderRadius: 12,
             padding: 20,
-            shadowColor: '#000',
-            shadowOpacity: 0.05,
-            shadowRadius: 10,
-            elevation: 3,
             width: '100%',
-            maxWidth: 500
+            maxWidth: 500,
+            elevation: 3, // optional if you're targeting Android
+            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.05)',
         },
         cardTitle: {
             fontSize: 14,
@@ -64,23 +79,17 @@ export default function getStyles() {
             fontWeight: '700',
             color: isDark ? '#e2e2e2' : '#111827',
         },
-        success: {
-            fontSize: 18,
-            color: '#10b981',
-            marginTop: 4,
-            fontWeight: '600',
-        },
-        failure: {
-            fontSize: 18,
-            color: '#f18d36',
+        arabic: {
+            fontSize: 20,
+            color: colors.primaryColor,
             marginTop: 4,
             fontWeight: '600',
         },
         info: {
-            color: '#f18d36',
+            color: colors.info,
             fontStyle: 'italic',
             marginTop: 10,
-            textAlign: 'right'
+            fontWeight: '500'
         },
         holiday: {
             fontSize: 22,
@@ -98,7 +107,8 @@ export default function getStyles() {
         },
         listItemTitle: {
             fontSize: 20,
-            color: isDark ? '#e2e2e2' : '#1f2937'
+            color: isDark ? '#e2e2e2' : '#1f2937',
+            fontWeight: '500'
         },
         listItemDetail: {
             color: '#8e8e8e',
@@ -108,8 +118,96 @@ export default function getStyles() {
             color: '#10b981',
             fontSize: 20
         },
-        text: {
-            color: isDark ? '#e2e2e2' : '#111827'
+        buttonContainer: {
+            padding: 20,
+        },
+        button: {
+            width: '100%',
+            paddingVertical: 10,
+            borderRadius: 3,
+            maxWidth: 300,
+            marginHorizontal: 'auto',
+            backgroundColor: colors.primaryColor,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 5
+        },
+        skeletonCard: {
+            backgroundColor: colors.foregroundColor,
+            justifyContent: 'space-between',
+            borderRadius: 12,
+            padding: 20,
+            width: '100%',
+            maxWidth: 500,
+            height: 120,
+            elevation: 3, // optional if you're targeting Android
+            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.05)',
+        },
+        bigSkeletonCard: {
+            backgroundColor: colors.foregroundColor,
+            justifyContent: 'space-between',
+            borderRadius: 12,
+            padding: 20,
+            width: '100%',
+            maxWidth: 500,
+            marginBottom: 25,
+            elevation: 3, // optional if you're targeting Android
+            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.05)',
+        },
+        bigSkeletonCardTitle: {
+            width: '30%',
+            height: 25,
+            borderRadius: 5,
+            backgroundColor: colors.skeletonColor,
+            marginBottom: 20
+        },
+        itemTitleSkeleton: {
+            backgroundColor: colors.skeletonColor,
+            height: 25,
+            marginBottom: 10
+        },
+        itemSubtitleSkeleton: {
+            backgroundColor: colors.skeletonColor,
+            height: 15,
+            marginBottom: 10
+        },
+        itemArabicSkeleton: {
+            backgroundColor: colors.skeletonColor,
+            height: 25,
+        },
+        skeletonCardTitle: {
+            width: '30%',
+            height: 25,
+            borderRadius: 5,
+            backgroundColor: colors.skeletonColor
+        },
+        skeletonCardValue: {
+            height: 25,
+            borderRadius: 5,
+            backgroundColor: colors.skeletonColor
+        },
+        skeletonCardDescription: {
+            width: '25%',
+            height: 25,
+            borderRadius: 5,
+            backgroundColor: colors.skeletonColor
+        },
+        floatingButton: {
+            width: 70,
+            height: 70,
+            position: 'absolute',
+            right: 25,
+            bottom: 50,
+            zIndex: 10,
+            backgroundColor: colors.primaryColor,
+            borderWidth: 1,
+            // borderColor: 'white',
+            borderRadius: '50%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            elevation: 3, // optional if you're targeting Android
+            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.05)',
         }
     });
 }

@@ -13,8 +13,8 @@ export default function NotFoundScreen() {
             <Stack.Screen options={{ title: 'Oops!', headerShown: false }} />
             <View style={[styles.wrapper, {alignItems: 'center'} ]}>
                 <View style={[styles.container, {height: '100%', alignItems: 'center', paddingTop: 200}]}>
-                    <Text style={{fontSize: 30, fontWeight: 'bold', color: colors.failure}}>404</Text>
-                    <Text style={{fontSize: 20, color: colors.textColor}}>{message ?? 'Page not found.'}</Text>
+                    <Text style={{fontSize: 30, fontWeight: 'bold', color: colors.failure}}>Error</Text>
+                    <Text style={{fontSize: 20, color: colors.textColor}}>{message ?? 'Unknown error occurred.'}</Text>
                     <Link href="/" style={[{marginTop: 40, color: colors.primaryColor}]}>
                         <Text>Go to home screen!</Text>
                     </Link>

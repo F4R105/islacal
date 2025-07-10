@@ -1,18 +1,20 @@
-type currentDateType = {
-    day: string,
-    month: string,
-    year: string,
-    date: string
+export type DateType = {
+  day: number,
+  month: number,
+  year: number,
+  fullDate: string
 }
 
-export default function getCurrentDate(): currentDateType {
-  const today = new Date();
-  const year = today.getFullYear().toString();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  const date = `${day}-${month}-${year}`;
+export default function formatDate(gregorianDate: Date = new Date()): DateType {
+  const year = gregorianDate.getFullYear().toString();
+  const month = String(gregorianDate.getMonth() + 1).padStart(2, '0');
+  const day = String(gregorianDate.getDate()).padStart(2, '0');
+  const fullDate = `${day}-${month}-${year}`;
 
   return {
-    day, month, year, date
+    day: parseInt(day),
+    month: parseInt(month),
+    year: parseInt(year),
+    fullDate
   }
 }
