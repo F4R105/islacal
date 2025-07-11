@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "islacal",
+    "name": "Islacal",
     "slug": "islacal",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,6 +8,11 @@
     "scheme": "islacal",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "cover",
+      "backgroundColor": "blue"
+    },
     "ios": {
       "supportsTablet": true
     },
