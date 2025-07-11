@@ -28,8 +28,9 @@ export default function Months() {
         </View>
       )}
 
-      <ScrollView contentContainerStyle={styles.container}>
-        {holidays && holidays.length > 0 && (
+
+      {holidays && holidays.length > 0 ? (
+        <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.cardContainer}>
             {
               loading ? (
@@ -62,8 +63,20 @@ export default function Months() {
             }
 
           </View>
-        )}
-      </ScrollView>
+        </ScrollView>
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
+          <Text style={{ fontSize: 40, fontWeight: 'bold',color: getColors().accentColor }}>Oops!..</Text>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: getColors().textColor  }}>No holidays this month</Text>
+        </View>
+      )}
     </View>
   );
 }

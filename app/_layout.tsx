@@ -27,7 +27,7 @@ export default function RootLayout() {
 
   const onLayoutRootView = useCallback(() => {
     if (appReady) {
-      // SplashScreen.hideAsync().catch(() => {});
+      SplashScreen.hideAsync().catch(() => {});
     }
   }, [appReady]);
 
