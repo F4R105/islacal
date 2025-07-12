@@ -7,6 +7,7 @@ import { router } from 'expo-router';
 export type AppDataContextType = {
     appData: AppDataType | null;
     loading: boolean;
+    refresh: () => void;
 };
 
 const AppDataContext = createContext<AppDataContextType | undefined>(undefined);
@@ -44,12 +45,28 @@ export const AppDataProvider = ({ children }: { children: React.ReactNode }) => 
         }
     };
 
+    const refreshAppData = async () => {
+        try {
+            setLoading(true);
+            const newData = await getNewData();
+            setAppData(newData);
+            setCache(newData);
+        } catch (error) {
+            router.push({
+                pathname: '/error',
+                params: { message: 'Something went wrong' }
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         getAppData();
     }, []);
 
     return (
-        <AppDataContext.Provider value={{ appData, loading }}>
+        <AppDataContext.Provider value={{ appData, loading, refresh: refreshAppData }}>
             {children}
         </AppDataContext.Provider>
     );

@@ -1,11 +1,15 @@
 import { StyleSheet, View } from 'react-native';
 import getStyles from "@/lib/styles";
 
-export default function BigCardSkeleton() {
+type BigCardSkeletonProps = {
+    numberOfCards?: number
+}
+
+export default function BigCardSkeleton({ numberOfCards = 2 }: BigCardSkeletonProps) {
     const styles = getStyles();
 
     return (
-        new Array(2).fill(null).map((item, index) => (
+        new Array(numberOfCards).fill(null).map((item, index) => (
             <View style={styles.bigSkeletonCard} key={index}>
                 <View style={[styles.bigSkeletonCardTitle]} />
                 <View>

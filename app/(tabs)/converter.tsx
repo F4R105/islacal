@@ -1,5 +1,5 @@
 import { fetchCalendarDayFromGregorianDate } from '@/lib/data';
-import getStyles, { getColors } from '@/lib/styles';
+import getStyles from '@/lib/styles';
 import { CalendarDay } from '@/lib/types';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import React, { useEffect, useState } from 'react';
@@ -7,11 +7,11 @@ import { Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native
 import { router } from 'expo-router';
 import CardListSkeleton from '@/components/CardListSkeleton';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import CalendarDayDetailsCards from '@/components/CalendarDayDetailsCards';
 
 
 const converter = () => {
     const styles = getStyles()
-    const colors = getColors()
 
     const [date, setDate] = useState(new Date());
     const [calendarDay, setCalendarDay] = useState<CalendarDay | null>(null);
@@ -75,51 +75,17 @@ const converter = () => {
                         is24Hour={true}
                     />
                 )}
-                {calendarDay && (
-                    <View style={styles.cardContainer}>
-                        {
-                            loading ? (
-                                <CardListSkeleton />
-                            ) : (
-                                <>
-                                    <View style={styles.card}>
-                                        <Text style={styles.cardTitle}>Day {calendarDay.hijri.holidays.length > 0 && <>(✨'<Text style={styles.cardSubtitle}>{calendarDay.hijri.holidays[0]}</Text>)</>}</Text>
-                                        <Text style={styles.cardValue}>
-                                            {calendarDay.hijri.day}, {calendarDay.hijri.weekday.en}
-                                        </Text>
-                                        <Text style={styles.arabic}>{calendarDay.hijri.weekday.ar}</Text>
-                                    </View>
 
-                                    <View style={styles.card}>
-                                        <Text style={styles.cardTitle}>Month <Text style={styles.cardSubtitle}>({calendarDay.hijri.month.days} days)</Text></Text>
-                                        <Text style={styles.cardValue}>
-                                            {calendarDay.hijri.month.en} ({calendarDay.hijri.month.number})
-                                        </Text>
-                                        <Text style={styles.arabic}>{calendarDay.hijri.month.ar}</Text>
-                                    </View>
-
-                                    <View style={styles.card}>
-                                        <Text style={styles.cardTitle}>Year</Text>
-                                        <Text style={styles.cardValue}>{calendarDay.hijri.year}</Text>
-                                    </View>
-
-                                    {calendarDay.hijri.holidays.length > 0 && (
-                                        <View style={styles.card}>
-                                            <Text style={styles.cardTitle}>Holidays</Text>
-                                            {calendarDay.hijri.holidays.map((holiday, index) => (
-                                                <Text key={index} style={styles.holiday}>
-                                                    - {holiday}
-                                                </Text>
-                                            ))}
-                                        </View>
-                                    )}
-                                </>
-                            )
-                        }
-
-
-                    </View>
-                )}
+                <View style={styles.cardContainer}>
+                    {loading ? (
+                        <CardListSkeleton />
+                    ) : (
+                        calendarDay && (
+                            <CalendarDayDetailsCards calendarDay={calendarDay} />
+                        )
+                    )
+                    }
+                </View>
             </ScrollView>
             <TouchableOpacity
                 style={styles.floatingButton}
@@ -127,7 +93,7 @@ const converter = () => {
                     setShow(true);
                 }}
             >
-                <MaterialCommunityIcons name="calendar-edit" size={30} color={'white'} />
+                <MaterialCommunityIcons name="calendar-edit" size={35} color={'white'} />
             </TouchableOpacity>
         </View>
     )

@@ -7,7 +7,7 @@ export async function getNewData(date: Date = new Date()): Promise<AppDataType> 
 
   try {
     const [monthlyCalendar, specialDays, islamicMonths] = await Promise.all([
-      fetch(`${API_BASE_URL}/gToHCalendar/${month}/${year}`),
+      fetch(`${API_BASE_URL}/gToHCalendar/${month}/${year}&calender=MATHEMATICAL`),
       fetch(`${API_BASE_URL}/specialDays`),
       fetch(`${API_BASE_URL}/islamicMonths`),
     ]);

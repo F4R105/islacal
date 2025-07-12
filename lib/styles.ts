@@ -202,12 +202,12 @@ export default function getStyles() {
             zIndex: 10,
             backgroundColor: colors.primaryColor,
             borderWidth: 1,
-            // borderColor: 'white',
+            borderColor: 'white',
             borderRadius: '50%',
             justifyContent: 'center',
             alignItems: 'center',
-            elevation: 3, // optional if you're targeting Android
-            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.05)',
+            elevation: 5, // optional if you're targeting Android
+            boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.05)',
         }
     });
 }
