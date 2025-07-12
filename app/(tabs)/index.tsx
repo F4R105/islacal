@@ -57,8 +57,7 @@ export default function HomeScreen() {
             }
           </Text>
         </View>
-        {/* <TouchableOpacity onPress={() => refresh()} style={{ marginRight: 10 }}> */}
-        <TouchableOpacity onPress={() => router.push('/+not-found')} style={{ marginRight: 10 }}>
+        <TouchableOpacity onPress={() => refresh()} style={{ marginRight: 10 }}>
           <Animated.View style={{ transform: [{ rotate: spin }] }}>
             <Ionicons name="refresh-circle" size={35} color={getColors().primaryColor} />
           </Animated.View>
